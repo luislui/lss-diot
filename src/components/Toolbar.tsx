@@ -1,11 +1,11 @@
 import { useRef } from 'react'
 import toast from 'react-hot-toast'
-import { ClipboardPaste, Plus, Trash2, Download, FileSpreadsheet, Upload } from 'lucide-react'
+import { ClipboardPaste, Plus, Trash2, Download, FileSpreadsheet, Upload, Columns } from 'lucide-react'
 import type { DiotVersion } from '../schemas/diotSchemas'
 import { buildDiotTxtContent, downloadDiotTxt } from '../utils/exportTxt'
 import { downloadExcelTemplate } from '../utils/excelTemplate'
 import { parseExcelFile } from '../utils/importExcel'
-import { parsePastedData } from '../utils/pasteFromClipboard'
+import { parsePastedToLines, hasPastedHeaders } from '../utils/pasteFromClipboard'
 import { validateAllRows } from '../utils/validation'
 
 type RowRecord = Record<string, string | number>
@@ -17,6 +17,10 @@ interface ToolbarProps {
   createEmptyRow: () => RowRecord
   selectedRowIndices: number[]
   onSelectionClear: () => void
+  onOpenPasteMapping?: (lines: string[][], version: DiotVersion) => void
+  /** Al importar Excel, se llama con (rows, version, 'replace') para permitir detección de RFC duplicados. */
+  onImportRows?: (rows: RowRecord[], version: DiotVersion, mode: 'replace') => void
+  onOpenColumnVisibility?: () => void
 }
 
 const btnClass =
@@ -31,6 +35,9 @@ export function Toolbar({
   createEmptyRow,
   selectedRowIndices,
   onSelectionClear,
+  onOpenPasteMapping,
+  onImportRows,
+  onOpenColumnVisibility,
 }: ToolbarProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -53,8 +60,12 @@ export function Toolbar({
         toast.error('El archivo no tiene filas de datos o los encabezados no coinciden con la plantilla.')
         return
       }
-      onRowsChange(imported)
-      toast.success(`${imported.length} fila(s) importada(s) desde Excel.`)
+      if (onImportRows) {
+        onImportRows(imported, version, 'replace')
+      } else {
+        onRowsChange(imported)
+        toast.success(`${imported.length} fila(s) importada(s) desde Excel.`)
+      }
     } catch {
       toast.error('No se pudo leer el archivo. Usa la plantilla DIOT de esta versión.')
     }
@@ -63,9 +74,16 @@ export function Toolbar({
   const handlePaste = async () => {
     try {
       const text = await navigator.clipboard.readText()
-      const newRows = parsePastedData(text, version)
-      if (newRows.length > 0) {
-        onRowsChange([...rows, ...newRows])
+      const lines = parsePastedToLines(text)
+      if (!hasPastedHeaders(lines)) {
+        toast.error(
+          'Es obligatorio pegar datos con encabezados. Incluye en la primera fila los nombres de las columnas (por ejemplo, copia desde Excel con la fila de títulos). Debe haber al menos 2 filas y 2 columnas.',
+          { duration: 7000 }
+        )
+        return
+      }
+      if (onOpenPasteMapping) {
+        onOpenPasteMapping(lines, version)
       }
     } catch {
       toast.error('No se pudo leer el portapapeles. Comprueba que hayas copiado datos desde Excel.')
@@ -154,6 +172,17 @@ export function Toolbar({
         <Download size={iconSize} aria-hidden />
         Descargar TXT
       </button>
+      {onOpenColumnVisibility && (
+        <button
+          type="button"
+          onClick={onOpenColumnVisibility}
+          className={btnClass}
+          title="Mostrar u ocultar columnas"
+        >
+          <Columns size={iconSize} aria-hidden />
+          Columnas
+        </button>
+      )}
     </div>
   )
 }

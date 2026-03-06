@@ -3,12 +3,13 @@ import { getSchema } from '../schemas/diotSchemas'
 
 /**
  * Formatea un valor para el TXT SAT: sin decimales, sin puntos ni comas.
+ * Los valores numéricos 0 se exportan vacíos.
  */
 function formatValue(value: string | number, isNumber: boolean): string {
   if (value === '' || value === null || value === undefined) return ''
   if (isNumber) {
     const n = Number(String(value).replace(/,/g, '').replace(/\./g, ''))
-    if (Number.isNaN(n)) return '0'
+    if (Number.isNaN(n) || Math.round(n) === 0) return ''
     return String(Math.round(n))
   }
   return String(value).trim()

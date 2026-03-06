@@ -12,6 +12,15 @@ const DEFAULT_COL_WIDTH_SELECT = 220
 const MIN_COL_WIDTH = 60
 const CHECKBOX_COL_WIDTH = 44
 
+/** Versión 2024: columnas de "Datos del tercero" (índices 0..6) y resto "IVA a declarar". */
+const GROUP_2024_TERCERO_COUNT = 7
+/** Versión 2025: 7 tercero, 10 Valor de actos (v1-v10), 10 IVA acreditable (v11-v20), 20 IVA no acreditable (v21-v40), 7 Datos adicionales. */
+const GROUP_2025_TERCERO_COUNT = 7
+const GROUP_2025_VALOR_ACTOS_COUNT = 10
+const GROUP_2025_IVA_ACREDITABLE_COUNT = 10
+const GROUP_2025_IVA_NO_ACREDITABLE_COUNT = 20
+const GROUP_2025_DATOS_ADICIONALES_COUNT = 7
+
 interface DiotGridProps {
   version: DiotVersion
   columns: DiotColumn[]
@@ -21,6 +30,17 @@ interface DiotGridProps {
   onSelectedRowIndicesChange: (indices: number[]) => void
   /** Errores por fila (índice) para marcar celdas con error. */
   rowErrors?: Record<number, ValidationError[]>
+  /** IDs de columnas ocultas (la configuración se persiste en localStorage). */
+  hiddenColumnIds?: string[]
+}
+
+function visibleInRange(
+  columns: DiotColumn[],
+  hiddenIds: string[],
+  start: number,
+  end: number
+): number {
+  return columns.slice(start, end).filter((c) => !hiddenIds.includes(c.id)).length
 }
 
 export function DiotGrid({
@@ -31,7 +51,10 @@ export function DiotGrid({
   selectedRowIndices,
   onSelectedRowIndicesChange,
   rowErrors = {},
+  hiddenColumnIds = [],
 }: DiotGridProps) {
+  const displayColumns = columns.filter((c) => !hiddenColumnIds.includes(c.id))
+
   const [columnWidths, setColumnWidths] = useState<Record<string, number>>({})
   const [resize, setResize] = useState<{ colId: string; startX: number; startWidth: number } | null>(null)
 
@@ -112,14 +135,14 @@ export function DiotGrid({
   })
 
   const tableMinWidth =
-    CHECKBOX_COL_WIDTH + columns.reduce((sum, col) => sum + getColWidth(col.id), 0)
+    CHECKBOX_COL_WIDTH + displayColumns.reduce((sum, col) => sum + getColWidth(col.id), 0)
 
   const inputBaseClass =
     'w-full min-w-[70px] rounded border border-slate-200 px-1.5 py-1 text-[0.8125rem] focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:focus:border-sky-400 dark:focus:ring-sky-400'
   const selectBaseClass =
     'w-full min-w-[140px] rounded border border-slate-200 bg-white px-1.5 py-1 text-[0.8125rem] focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:focus:border-sky-400 dark:focus:ring-sky-400'
   const inputErrorClass =
-    'border-red-600 bg-red-50 focus:border-red-600 focus:ring-red-600 dark:border-red-500 dark:bg-red-900/40 dark:focus:border-red-500 dark:focus:ring-red-500'
+    'border-red-600 bg-red-50 text-red-700 focus:border-red-600 focus:ring-red-600 dark:border-red-500 dark:bg-red-900/40 dark:text-red-200 dark:focus:border-red-500 dark:focus:ring-red-500'
 
   return (
     <div className="w-full overflow-auto rounded-lg border border-slate-200 dark:border-slate-600">
@@ -129,7 +152,7 @@ export function DiotGrid({
       >
         <colgroup>
           <col style={{ width: CHECKBOX_COL_WIDTH, minWidth: CHECKBOX_COL_WIDTH }} />
-          {columns.map((col) => (
+          {displayColumns.map((col) => (
             <col
               key={col.id}
               style={{ width: getColWidth(col.id), minWidth: MIN_COL_WIDTH }}
@@ -137,43 +160,191 @@ export function DiotGrid({
           ))}
         </colgroup>
         <thead>
-          <tr>
-            <th className="overflow-hidden border-b border-slate-200 bg-slate-50 px-1.5 py-2 text-left dark:border-slate-600 dark:bg-slate-800">
-              <input
-                type="checkbox"
-                checked={rows.length > 0 && selectedRowIndices.length === rows.length}
-                onChange={toggleAll}
-                title="Seleccionar todas"
-                className="rounded border-slate-300 dark:border-slate-500 dark:bg-slate-700"
-              />
-            </th>
-            {columns.map((col) => (
-              <th
-                key={col.id}
-                className="relative overflow-hidden border-b border-slate-200 bg-slate-50 align-middle dark:border-slate-600 dark:bg-slate-800"
-                title={col.requiredWhen ? `${col.label}. ${col.requiredWhen}` : col.label}
-              >
-                <span className="block overflow-hidden text-ellipsis whitespace-nowrap py-2 pr-3.5 pl-1.5">
-                  {col.label}
-                  {col.required && (
-                    <span className="ml-0.5 font-semibold text-red-600 dark:text-red-400" aria-label="Obligatorio">
-                      *
+          {version === '2024' ? (
+            <>
+              <tr>
+                <th
+                  rowSpan={2}
+                  className="overflow-hidden border-b border-slate-200 bg-slate-50 px-1.5 py-2 text-left align-middle dark:border-slate-600 dark:bg-slate-800"
+                >
+                  <input
+                    type="checkbox"
+                    checked={rows.length > 0 && selectedRowIndices.length === rows.length}
+                    onChange={toggleAll}
+                    title="Seleccionar todas"
+                    className="rounded border-slate-300 dark:border-slate-500 dark:bg-slate-700"
+                  />
+                </th>
+                {visibleInRange(columns, hiddenColumnIds, 0, GROUP_2024_TERCERO_COUNT) > 0 && (
+                  <th
+                    colSpan={visibleInRange(columns, hiddenColumnIds, 0, GROUP_2024_TERCERO_COUNT)}
+                    className="border-b border-r border-sky-200 bg-sky-100 px-2 py-1.5 text-center text-xs font-semibold uppercase tracking-wide text-sky-800 dark:border-sky-700 dark:bg-sky-900/80 dark:text-sky-100"
+                  >
+                    Datos del tercero declarado
+                  </th>
+                )}
+                {visibleInRange(columns, hiddenColumnIds, GROUP_2024_TERCERO_COUNT, columns.length) > 0 && (
+                  <th
+                    colSpan={visibleInRange(columns, hiddenColumnIds, GROUP_2024_TERCERO_COUNT, columns.length)}
+                    className="border-b border-emerald-200 bg-emerald-100 px-2 py-1.5 text-center text-xs font-semibold uppercase tracking-wide text-emerald-800 dark:border-emerald-700 dark:bg-emerald-900/80 dark:text-emerald-100"
+                  >
+                    IVA a declarar por tercero o proveedor
+                  </th>
+                )}
+              </tr>
+              <tr>
+                {displayColumns.map((col) => (
+                  <th
+                    key={col.id}
+                    className="relative overflow-hidden border-b border-slate-200 bg-slate-50 align-middle dark:border-slate-600 dark:bg-slate-800"
+                    title={col.requiredWhen ? `${col.label}. ${col.requiredWhen}` : col.label}
+                  >
+                    <span className="block overflow-hidden text-ellipsis whitespace-nowrap py-2 pr-3.5 pl-1.5">
+                      {col.label}
+                      {col.required && (
+                        <span className="ml-0.5 font-semibold text-red-600 dark:text-red-400" aria-label="Obligatorio">
+                          *
+                        </span>
+                      )}
                     </span>
-                  )}
-                </span>
-                <span
-                  role="separator"
-                  aria-orientation="vertical"
-                  onMouseDown={(e) => {
-                    e.preventDefault()
-                    setResize({ colId: col.id, startX: e.clientX, startWidth: getColWidth(col.id) })
-                  }}
-                  className="absolute right-0 top-0 h-full w-1.5 cursor-col-resize"
-                  title="Redimensionar columna"
+                    <span
+                      role="separator"
+                      aria-orientation="vertical"
+                      onMouseDown={(e) => {
+                        e.preventDefault()
+                        setResize({ colId: col.id, startX: e.clientX, startWidth: getColWidth(col.id) })
+                      }}
+                      className="absolute right-0 top-0 h-full w-1.5 cursor-col-resize"
+                      title="Redimensionar columna"
+                    />
+                  </th>
+                ))}
+              </tr>
+            </>
+          ) : version === '2025' ? (
+            <>
+              <tr>
+                <th
+                  rowSpan={2}
+                  className="overflow-hidden border-b border-slate-200 bg-slate-50 px-1.5 py-2 text-left align-middle dark:border-slate-600 dark:bg-slate-800"
+                >
+                  <input
+                    type="checkbox"
+                    checked={rows.length > 0 && selectedRowIndices.length === rows.length}
+                    onChange={toggleAll}
+                    title="Seleccionar todas"
+                    className="rounded border-slate-300 dark:border-slate-500 dark:bg-slate-700"
+                  />
+                </th>
+                {visibleInRange(columns, hiddenColumnIds, 0, GROUP_2025_TERCERO_COUNT) > 0 && (
+                  <th
+                    colSpan={visibleInRange(columns, hiddenColumnIds, 0, GROUP_2025_TERCERO_COUNT)}
+                    className="border-b border-r border-sky-200 bg-sky-100 px-2 py-1.5 text-center text-xs font-semibold uppercase tracking-wide text-sky-800 dark:border-sky-700 dark:bg-sky-900/80 dark:text-sky-100"
+                  >
+                    Datos del tercero declarado
+                  </th>
+                )}
+                {visibleInRange(columns, hiddenColumnIds, GROUP_2025_TERCERO_COUNT, GROUP_2025_TERCERO_COUNT + GROUP_2025_VALOR_ACTOS_COUNT) > 0 && (
+                  <th
+                    colSpan={visibleInRange(columns, hiddenColumnIds, GROUP_2025_TERCERO_COUNT, GROUP_2025_TERCERO_COUNT + GROUP_2025_VALOR_ACTOS_COUNT)}
+                    className="border-b border-r border-amber-200 bg-amber-100 px-2 py-1.5 text-center text-xs font-semibold uppercase tracking-wide text-amber-800 dark:border-amber-700 dark:bg-amber-900/80 dark:text-amber-100"
+                  >
+                    Valor de actos o actividades
+                  </th>
+                )}
+                {visibleInRange(columns, hiddenColumnIds, GROUP_2025_TERCERO_COUNT + GROUP_2025_VALOR_ACTOS_COUNT, GROUP_2025_TERCERO_COUNT + GROUP_2025_VALOR_ACTOS_COUNT + GROUP_2025_IVA_ACREDITABLE_COUNT) > 0 && (
+                  <th
+                    colSpan={visibleInRange(columns, hiddenColumnIds, GROUP_2025_TERCERO_COUNT + GROUP_2025_VALOR_ACTOS_COUNT, GROUP_2025_TERCERO_COUNT + GROUP_2025_VALOR_ACTOS_COUNT + GROUP_2025_IVA_ACREDITABLE_COUNT)}
+                    className="border-b border-r border-violet-200 bg-violet-100 px-2 py-1.5 text-center text-xs font-semibold uppercase tracking-wide text-violet-800 dark:border-violet-700 dark:bg-violet-900/80 dark:text-violet-100"
+                  >
+                    IVA acreditable
+                  </th>
+                )}
+                {visibleInRange(columns, hiddenColumnIds, GROUP_2025_TERCERO_COUNT + GROUP_2025_VALOR_ACTOS_COUNT + GROUP_2025_IVA_ACREDITABLE_COUNT, GROUP_2025_TERCERO_COUNT + GROUP_2025_VALOR_ACTOS_COUNT + GROUP_2025_IVA_ACREDITABLE_COUNT + GROUP_2025_IVA_NO_ACREDITABLE_COUNT) > 0 && (
+                  <th
+                    colSpan={visibleInRange(columns, hiddenColumnIds, GROUP_2025_TERCERO_COUNT + GROUP_2025_VALOR_ACTOS_COUNT + GROUP_2025_IVA_ACREDITABLE_COUNT, GROUP_2025_TERCERO_COUNT + GROUP_2025_VALOR_ACTOS_COUNT + GROUP_2025_IVA_ACREDITABLE_COUNT + GROUP_2025_IVA_NO_ACREDITABLE_COUNT)}
+                    className="border-b border-r border-rose-200 bg-rose-100 px-2 py-1.5 text-center text-xs font-semibold uppercase tracking-wide text-rose-800 dark:border-rose-700 dark:bg-rose-900/80 dark:text-rose-100"
+                  >
+                    IVA no acreditable
+                  </th>
+                )}
+                {visibleInRange(columns, hiddenColumnIds, GROUP_2025_TERCERO_COUNT + GROUP_2025_VALOR_ACTOS_COUNT + GROUP_2025_IVA_ACREDITABLE_COUNT + GROUP_2025_IVA_NO_ACREDITABLE_COUNT, columns.length) > 0 && (
+                  <th
+                    colSpan={visibleInRange(columns, hiddenColumnIds, GROUP_2025_TERCERO_COUNT + GROUP_2025_VALOR_ACTOS_COUNT + GROUP_2025_IVA_ACREDITABLE_COUNT + GROUP_2025_IVA_NO_ACREDITABLE_COUNT, columns.length)}
+                    className="border-b border-slate-200 bg-slate-100 px-2 py-1.5 text-center text-xs font-semibold uppercase tracking-wide text-slate-600 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300"
+                  >
+                    Datos adicionales
+                  </th>
+                )}
+              </tr>
+              <tr>
+                {displayColumns.map((col) => (
+                  <th
+                    key={col.id}
+                    className="relative overflow-hidden border-b border-slate-200 bg-slate-50 align-middle dark:border-slate-600 dark:bg-slate-800"
+                    title={col.requiredWhen ? `${col.label}. ${col.requiredWhen}` : col.label}
+                  >
+                    <span className="block overflow-hidden text-ellipsis whitespace-nowrap py-2 pr-3.5 pl-1.5">
+                      {col.label}
+                      {col.required && (
+                        <span className="ml-0.5 font-semibold text-red-600 dark:text-red-400" aria-label="Obligatorio">
+                          *
+                        </span>
+                      )}
+                    </span>
+                    <span
+                      role="separator"
+                      aria-orientation="vertical"
+                      onMouseDown={(e) => {
+                        e.preventDefault()
+                        setResize({ colId: col.id, startX: e.clientX, startWidth: getColWidth(col.id) })
+                      }}
+                      className="absolute right-0 top-0 h-full w-1.5 cursor-col-resize"
+                      title="Redimensionar columna"
+                    />
+                  </th>
+                ))}
+              </tr>
+            </>
+          ) : (
+            <tr>
+              <th className="overflow-hidden border-b border-slate-200 bg-slate-50 px-1.5 py-2 text-left dark:border-slate-600 dark:bg-slate-800">
+                <input
+                  type="checkbox"
+                  checked={rows.length > 0 && selectedRowIndices.length === rows.length}
+                  onChange={toggleAll}
+                  title="Seleccionar todas"
+                  className="rounded border-slate-300 dark:border-slate-500 dark:bg-slate-700"
                 />
               </th>
-            ))}
-          </tr>
+              {displayColumns.map((col) => (
+                <th
+                  key={col.id}
+                  className="relative overflow-hidden border-b border-slate-200 bg-slate-50 align-middle dark:border-slate-600 dark:bg-slate-800"
+                  title={col.requiredWhen ? `${col.label}. ${col.requiredWhen}` : col.label}
+                >
+                  <span className="block overflow-hidden text-ellipsis whitespace-nowrap py-2 pr-3.5 pl-1.5">
+                    {col.label}
+                    {col.required && (
+                      <span className="ml-0.5 font-semibold text-red-600 dark:text-red-400" aria-label="Obligatorio">
+                        *
+                      </span>
+                    )}
+                  </span>
+                  <span
+                    role="separator"
+                    aria-orientation="vertical"
+                    onMouseDown={(e) => {
+                      e.preventDefault()
+                      setResize({ colId: col.id, startX: e.clientX, startWidth: getColWidth(col.id) })
+                    }}
+                    className="absolute right-0 top-0 h-full w-1.5 cursor-col-resize"
+                    title="Redimensionar columna"
+                  />
+                </th>
+              ))}
+            </tr>
+          )}
         </thead>
         <tbody>
           {rows.map((row, rowIndex) => (
@@ -186,7 +357,7 @@ export function DiotGrid({
                   className="rounded border-slate-300 dark:border-slate-500 dark:bg-slate-700"
                 />
               </td>
-              {columns.map((col) => {
+              {displayColumns.map((col) => {
                 const cellError = rowErrors[rowIndex]?.find((e) => e.colId === col.id)
                 const hasError = Boolean(cellError)
                 const isTipoOperacion2025 = version === '2025' && col.id === 'tipo_operacion'
@@ -277,7 +448,7 @@ export function DiotGrid({
         <tfoot>
           <tr className="border-b border-slate-200 font-semibold bg-slate-100 dark:border-slate-600 dark:bg-slate-800">
             <td className="px-1.5 py-1 align-middle dark:text-slate-200">Total</td>
-            {columns.map((col) => (
+            {displayColumns.map((col) => (
               <td
                 key={col.id}
                 className={`px-1.5 py-1 align-middle dark:text-slate-200 ${col.type === 'number' ? 'text-right' : ''}`}
