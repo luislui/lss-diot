@@ -2,6 +2,8 @@
 
 Generador de archivos TXT DIOT para el SAT (México). Desarrollado por [Loeram Software Solutions](https://www.loeramsoft.com). Permite capturar operaciones con proveedores nacionales, extranjeros y globales, validar los datos y exportar el archivo en el formato requerido para la Declaración Informativa de Operaciones con Terceros.
 
+**Demo:** [http://66.94.112.188](http://66.94.112.188)
+
 ## Características
 
 - **Versiones DIOT**: soporte para formato 2024 (23 columnas) y 2025 (57 columnas). Selector en la barra superior.
