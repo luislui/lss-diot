@@ -10,6 +10,7 @@ import { ColumnVisibilityModal } from './components/ColumnVisibilityModal'
 import { HelpCircle } from 'lucide-react'
 import { getSchema, createEmptyRow, type DiotVersion } from './schemas/diotSchemas'
 import { getHiddenColumnIds, setHiddenColumnIds } from './utils/columnVisibility'
+import { getStoredDiotVersion, setStoredDiotVersion } from './utils/diotVersionStorage'
 import { validateRow } from './utils/validation'
 import { parsePastedToLines, hasPastedHeaders, parsePastedDataWithMapping } from './utils/pasteFromClipboard'
 import { hasDuplicateRfc, groupRowsByRfc } from './utils/groupByRfc'
@@ -27,7 +28,7 @@ type PendingImportState = {
 }
 
 function App() {
-  const [version, setVersion] = useState<DiotVersion>('2025')
+  const [version, setVersion] = useState<DiotVersion>(getStoredDiotVersion)
   const [rows, setRows] = useState<RowRecord[]>([])
   const [selectedRowIndices, setSelectedRowIndices] = useState<number[]>([])
   const [pasteModal, setPasteModal] = useState<PasteModalState>({ open: false, lines: null, version: null })
@@ -41,6 +42,7 @@ function App() {
 
   const handleVersionChange = useCallback((newVersion: DiotVersion) => {
     setVersion(newVersion)
+    setStoredDiotVersion(newVersion)
     setRows([])
     setSelectedRowIndices([])
   }, [])
