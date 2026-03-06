@@ -1,0 +1,18 @@
+﻿"Tipo de tercero
+
+04 - Nacional
+05 - Extranjero
+15 - Global","Tipo de operación
+
+03 - Serv. Prof.
+06 - Uso o goce temporal de bienes
+85 - Otros
+87 - Operaciones globales","Registro federal de contribuyentes
+(Obligatorio solo si es nacional)","Número de identificación fiscal
+ (Obligatorio solo si es extranjero)","Nombre del extranjero
+ (Obligatorio solo si es extranjero)","País o jurisdicción de residencia fiscal 
+(Obligatorio solo si es extranjero)","Especificar lugar de jurisdicción fiscal  
+(Obligatorio solo si es extranjero)",Valor de los actos o actividades pagados a la tasa del 16% de IVA,Monto del IVA pagado no acreditable a la tasa del 16%,Valor de los actos o actividades pagados a la tasa del 11% de IVA,Monto del IVA pagado no acreditable a la tasa del 11%,Valor de los actos o actividades pagados en la región fronteriza norte,Monto del IVA pagado no acreditable en la región fronteriza norte,Valor de los actos o actividades pagados en la región fronteriza sur,Monto del IVA pagado no acreditable en la región fronteriza sur,Valor de los actos o actividades pagados en la importación de bienes y servicios a la tasa del 16% de IVA,Monto del IVA pagado no acreditable en la importación de bienes y servicios a la tasa del 16% de IVA,Valor de los actos o actividades pagados en la importación de bienes y servicios por los que no se pagará el IVA (Exentos),Valor de los actos o actividades pagados por los que no se pagará el IVA (Exentos),Valor de los actos o actividades pagados a la tasa del 0% de IVA,Valor de los actos o actividades no objeto del IVA,IVA retenido por el contribuyente,"IVA pagado por devoluciones, descuentos y bonificaciones sobre adquisición de mercancías y gastos en general",Ejemplo de salida de la linea del txt
+04,03,RFC del proveedor,,,,,65432,10469,,,5000,400,7000,560,,,,45000,666,4545,112,212,04|03|RFC del proveedor|||||65432|10469|||5000|400|7000|560||||45000|666|4545|112|212
+05,85,RFC del proveedor,NUMIDFISCAL,Nombre del Extranjero,ZZZ,Especificar lugar de jurisdicción fiscal,12500,2000,,,987654,10,65432,5235,76543,554,5432567,1000,160,1000,10,10,05|85|RFC del proveedor|NUMIDFISCAL|Nombre del Extranjero|ZZZ|Especificar lugar de jurisdicción fiscal|12500|2000|||987654|10|65432|5235|76543|554|5432567|1000|160|1000|10|10
+15,87,XAXX010101000,,,,,658555,105368,,,876543,10,6545432,5236,8765,777,7654,1000,160,1000,10,10,15|87|XAXX010101000|||||658555|105368|||876543|10|6545432|5236|8765|777|7654|1000|160|1000|10|10

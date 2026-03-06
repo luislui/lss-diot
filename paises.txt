@@ -1,0 +1,249 @@
+AFG|Afganistán
+AIA|Anguila
+ATA|Antártida
+ALA|Islas Aland
+ATG|Antigua y Barbuda
+ALB|Albania
+SAU|Arabia Saudita
+DEU|Alemania
+DZA|Argelia
+AND|Andorra
+ARG|Argentina
+AGO|Angola
+ARM|Armenia
+ABW|Aruba
+CPV|Cabo Verde
+AUS|Australia
+KHM|Camboya
+AUT|Austria
+CMR|Camerún
+AZE|Azerbaiyán
+CAN|Canadá
+BHS|Bahamas (las)
+QAT|Catar
+BGD|Bangladés
+BES|Bonaire, San Eustaquio y Saba
+BRB|Barbados
+TCD|Chad
+BHR|Baréin
+CHL|Chile
+BEL|Bélgica
+CHN|China
+BLZ|Belice
+CYP|Chipre
+BEN|Benín
+COL|Colombia
+BMU|Bermudas
+COM|Comoras
+BLR|Bielorrusia
+PRK|Corea (la República Democrática Popular de)
+MMR|Myanmar
+KOR|Corea (la República de)
+BOL|Bolivia, Estado Plurinacional de
+CIV|Côte d'Ivoire
+BIH|Bosnia y Herzegovina
+CRI|Costa Rica
+BWA|Botsuana
+HRV|Croacia
+BRA|Brasil
+CUB|Cuba
+BRN|Brunéi Darussalam
+CUW|Curaçao
+BGR|Bulgaria
+DNK|Dinamarca
+BFA|Burkina Faso
+DMA|Dominica
+BDI|Burundi
+ECU|Ecuador
+BTN|Bután
+EGY|Egipto
+GUM|Guam
+SLV|El Salvador
+GTM|Guatemala
+ARE|Emiratos Árabes Unidos (Los)
+GUF|Guayana Francesa
+ERI|Eritrea
+GGY|Guernsey
+SVK|Eslovaquia
+GIN|Guinea
+SVN|Eslovenia
+GNB|Guinea-Bisáu
+ESP|España
+GNQ|Guinea Ecuatorial
+USA|Estados Unidos (los)
+GUY|Guyana
+EST|Estonia
+HTI|Haití
+ETH|Etiopía
+HND|Honduras
+PHL|Filipinas (las)
+HKG|Hong Kong
+FIN|Finlandia
+HUN|Hungría
+FJI|Fiyi
+IND|India
+FRA|Francia
+IDN|Indonesia
+GAB|Gabón
+IRQ|Irak
+GMB|Gambia (La)
+IRN|Irán (la República Islámica de)
+GEO|Georgia
+IRL|Irlanda
+GHA|Ghana
+BVT|Isla Bouvet
+GIB|Gibraltar
+IMN|Isla de Man
+GRD|Granada
+CXR|Isla de Navidad
+GRC|Grecia
+NFK|Isla Norfolk
+GRL|Groenlandia
+ISL|Islandia
+GLP|Guadalupe
+CYM|Islas Caimán (las)
+CCK|Islas Cocos (Keeling)
+KGZ|Kirguistán
+COK|Islas Cook (las)
+KIR|Kiribati
+FRO|Islas Feroe (las)
+KWT|Kuwait
+SGS|Georgia del sur y las islas sandwich del sur
+LAO|Lao, (la) República Democrática Popular
+LSO|Lesoto
+HMD|Isla Heard e Islas McDonald
+LVA|Letonia
+FLK|Islas Malvinas [Falkland] (las)
+LBN|Líbano
+MNP|Islas Marianas del Norte (las)
+LBR|Liberia
+MHL|Islas Marshall (las)
+LBY|Libia
+PCN|Pitcairn
+LIE|Liechtenstein
+SLB|Islas Salomón (las)
+LTU|Lituania
+TCA|Islas Turcas y Caicos (las)
+LUX|Luxemburgo
+UMI|Islas de Ultramar Menores de Estados Unidos|(las)
+MAC|Macao
+VGB|Islas Vírgenes (Británicas)
+MDG|Madagascar
+VIR|Islas Vírgenes (EE.UU.)
+MYS|Malasia
+ISR|Israel
+MWI|Malaui
+ITA|Italia
+MDV|Maldivas
+JAM|Jamaica
+MLI|Malí
+JPN|Japón
+MLT|Malta
+JEY|Jersey
+MAR|Marruecos
+JOR|Jordania
+MTQ|Martinica
+KAZ|Kazajistán
+MUS|Mauricio
+KEN|Kenia
+MRT|Mauritania
+MYT|Mayotte
+PAN|Panamá
+FSM|Micronesia (los Estados Federados de)
+PNG|Papúa Nueva Guinea
+MDA|Moldavia (la República de)
+PRY|Paraguay
+MCO|Mónaco
+PER|Perú
+MNG|Mongolia
+PYF|Polinesia Francesa
+MNE|Montenegro
+POL|Polonia
+MSR|Montserrat
+PRT|Portugal
+MOZ|Mozambique
+PRI|Puerto Rico
+NAM|Namibia
+GBR|Reino Unido (el)
+NRU|Nauru
+CAF|República Centroafricana (la)
+NPL|Nepal
+CZE|República Checa (la)
+NIC|Nicaragua
+MKD|Macedonia (la antigua República Yugoslava de)
+NER|Níger (el)
+COG|Congo
+NGA|Nigeria
+COD|Congo (la República Democrática del)
+NIU|Niue
+DOM|República Dominicana (la)
+NOR|Noruega
+REU|Reunión
+NCL|Nueva Caledonia
+RWA|Ruanda
+NZL|Nueva Zelanda
+ROU|Rumania
+OMN|Omán
+RUS|Rusia, (la) Federación de
+NLD|Países Bajos (los)
+ESH|Sahara Occidental
+PAK|Pakistán
+WSM|Samoa
+PLW|Palaos
+ASM|Samoa Americana
+PSE|Palestina, Estado de
+BLM|San Bartolomé
+SWE|Suecia
+KNA|San Cristóbal y Nieves
+CHE|Suiza
+SMR|San Marino
+SUR|Surinam
+MAF|San Martín (parte francesa)
+SJM|Svalbard y Jan Mayen
+SPM|San Pedro y Miquelón
+THA|Tailandia
+VCT|San Vicente y las Granadinas
+TWN|Taiwán (Provincia de China)
+SHN|Santa Helena, Ascensión y Tristán de Acuña
+TZA|Tanzania, República Unida de
+TJK|Tayikistán
+LCA|Santa Lucía
+IOT|Territorio Británico del Océano Índico (el)
+STP|Santo Tomé y Príncipe
+ATF|Territorios Australes Franceses (los)
+SEN|Senegal
+TLS|Timor-Leste
+SRB|Serbia
+SYC|Seychelles
+TGO|Togo
+TKL|Tokelau
+SLE|Sierra leona
+TON|Tonga
+SGP|Singapur
+SXM|Sint Maarten (parte holandesa)
+TTO|Trinidad y Tobago
+TUN|Túnez
+SYR|Siria, (la) República Árabe
+TKM|Turkmenistán
+SOM|Somalia
+TUR|Turquía
+LKA|Sri Lanka
+TUV|Tuvalu
+SWZ|Suazilandia
+UKR|Ucrania
+ZAF|Sudáfrica
+UGA|Uganda
+SDN|Sudán (el)
+URY|Uruguay
+SSD|Sudán del Sur
+UZB|Uzbekistán
+VUT|Vanuatu
+VAT|Santa Sede[Estado de la Ciudad del Vaticano] (la)
+VEN|Venezuela, República Bolivariana de
+VNM|Viet Nam
+WLF|Wallis y Futuna
+YEM|Yemen
+DJI|Yibuti
+ZMB|Zambia
+ZWE|Zimbabue
+ZZZ|Otro
