@@ -158,9 +158,14 @@ function App() {
     <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-slate-900">
       <header className="border-b border-slate-200 bg-white px-6 py-4 shadow-sm dark:border-slate-700 dark:bg-slate-800">
         <div className="flex items-start justify-between gap-4">
-          <div>
-            <h1 className="m-0 text-2xl font-bold text-slate-900 dark:text-white">LSS Generador de DIOT</h1>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Generador de archivos TXT DIOT para el SAT (México)</p>
+          <div className="flex items-center gap-4">
+            <a href="https://www.loeramsoft.com" target="_blank" rel="noopener noreferrer" className="shrink-0" aria-label="Loeram Software Solutions">
+              <img src="/logo_loeram_short.png" alt="Loeram" className="h-10 w-auto object-contain" />
+            </a>
+            <div>
+              <h1 className="m-0 text-2xl font-bold text-slate-900 dark:text-white">LSS Generador de DIOT</h1>
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Generador de archivos TXT DIOT para el SAT (México)</p>
+            </div>
           </div>
           <button
             type="button"
