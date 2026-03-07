@@ -7,7 +7,7 @@ import { PasteMappingModal } from './components/PasteMappingModal'
 import { HelpModal } from './components/HelpModal'
 import { DuplicateRfcModal } from './components/DuplicateRfcModal'
 import { ColumnVisibilityModal } from './components/ColumnVisibilityModal'
-import { HelpCircle } from 'lucide-react'
+import { HelpCircle, ArrowLeft } from 'lucide-react'
 import { getSchema, createEmptyRow, type DiotVersion } from './schemas/diotSchemas'
 import { getHiddenColumnIds, setHiddenColumnIds } from './utils/columnVisibility'
 import { getStoredDiotVersion, setStoredDiotVersion } from './utils/diotVersionStorage'
@@ -160,7 +160,8 @@ function App() {
       <header className="border-b border-slate-200 bg-white px-6 py-4 shadow-sm dark:border-slate-700 dark:bg-slate-800">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-4">
-            <a href="https://www.loeramsoft.com" target="_blank" rel="noopener noreferrer" className="shrink-0" aria-label="Loeram Software Solutions">
+            <a href="/" className="flex shrink-0 items-center gap-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100" aria-label="Volver al inicio">
+              <ArrowLeft size={24} aria-hidden />
               <img src={logoShort} alt="Loeram" className="h-10 w-auto object-contain" />
             </a>
             <div>
