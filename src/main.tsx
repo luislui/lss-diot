@@ -4,9 +4,10 @@ import { Toaster } from 'react-hot-toast'
 import './index.css'
 import App from './App.tsx'
 import faviconUrl from './assets/images/logo_loeram_favicon.png'
+import { LSS_THEME_STORAGE_KEY, LSS_THEME_DARK } from './utils/themeStorage'
 
-const storedTheme = typeof window !== 'undefined' ? localStorage.getItem('lss-theme') : null
-const isDark = storedTheme ? storedTheme === 'dark' : true
+const storedTheme = typeof window !== 'undefined' ? localStorage.getItem(LSS_THEME_STORAGE_KEY) : null
+const isDark = storedTheme ? storedTheme === LSS_THEME_DARK : true
 if (isDark) document.documentElement.classList.add('dark')
 else document.documentElement.classList.remove('dark')
 

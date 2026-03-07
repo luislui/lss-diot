@@ -11,6 +11,7 @@ import { HelpCircle, ArrowLeft, Sun, Moon } from 'lucide-react'
 import { getSchema, createEmptyRow, type DiotVersion } from './schemas/diotSchemas'
 import { getHiddenColumnIds, setHiddenColumnIds } from './utils/columnVisibility'
 import { getStoredDiotVersion, setStoredDiotVersion } from './utils/diotVersionStorage'
+import { LSS_THEME_STORAGE_KEY, LSS_THEME_DARK, LSS_THEME_LIGHT } from './utils/themeStorage'
 import { validateRow } from './utils/validation'
 import { parsePastedToLines, hasPastedHeaders, parsePastedDataWithMapping } from './utils/pasteFromClipboard'
 import { hasDuplicateRfc, groupRowsByRfc } from './utils/groupByRfc'
@@ -38,8 +39,8 @@ function App() {
   const [columnVisibilityOpen, setColumnVisibilityOpen] = useState(false)
   const [dark, setDark] = useState(() => {
     if (typeof window === 'undefined') return true
-    const stored = localStorage.getItem('lss-theme')
-    if (stored) return stored === 'dark'
+    const stored = localStorage.getItem(LSS_THEME_STORAGE_KEY)
+    if (stored) return stored === LSS_THEME_DARK
     return true
   })
   const [hiddenByVersion, setHiddenByVersion] = useState<Record<DiotVersion, string[]>>(() => ({
@@ -130,10 +131,10 @@ function App() {
     const root = document.documentElement
     if (dark) {
       root.classList.add('dark')
-      localStorage.setItem('lss-theme', 'dark')
+      localStorage.setItem(LSS_THEME_STORAGE_KEY, LSS_THEME_DARK)
     } else {
       root.classList.remove('dark')
-      localStorage.setItem('lss-theme', 'light')
+      localStorage.setItem(LSS_THEME_STORAGE_KEY, LSS_THEME_LIGHT)
     }
   }, [dark])
 
