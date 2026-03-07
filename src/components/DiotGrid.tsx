@@ -137,14 +137,14 @@ export function DiotGrid({
     CHECKBOX_COL_WIDTH + displayColumns.reduce((sum, col) => sum + getColWidth(col.id), 0)
 
   const inputBaseClass =
-    'w-full min-w-[70px] rounded border border-slate-200 px-1.5 py-1 text-[0.8125rem] focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:focus:border-sky-400 dark:focus:ring-sky-400'
+    'w-full min-w-[70px] rounded border border-neutral-200 px-1.5 py-1 text-[0.8125rem] focus:border-[#63048C] focus:outline-none focus:ring-1 focus:ring-[#63048C] dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-100 dark:focus:border-[#b855e8] dark:focus:ring-[#b855e8]'
   const selectBaseClass =
-    'w-full min-w-[140px] rounded border border-slate-200 bg-white px-1.5 py-1 text-[0.8125rem] focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:focus:border-sky-400 dark:focus:ring-sky-400'
+    'w-full min-w-[140px] rounded border border-neutral-200 bg-white px-1.5 py-1 text-[0.8125rem] focus:border-[#63048C] focus:outline-none focus:ring-1 focus:ring-[#63048C] dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-100 dark:focus:border-[#b855e8] dark:focus:ring-[#b855e8]'
   const inputErrorClass =
     'border-red-600 bg-red-50 text-red-700 focus:border-red-600 focus:ring-red-600 dark:border-red-500 dark:bg-red-900/40 dark:text-red-200 dark:focus:border-red-500 dark:focus:ring-red-500'
 
   return (
-    <div className="w-full overflow-auto rounded-lg border border-slate-200 dark:border-slate-600">
+    <div className="w-full overflow-auto rounded-lg border border-neutral-200 dark:border-neutral-600">
       <table
         className="w-full min-w-full table-fixed border-collapse text-[0.8125rem]"
         style={{ minWidth: tableMinWidth }}
@@ -164,14 +164,14 @@ export function DiotGrid({
               <tr>
                 <th
                   rowSpan={2}
-                  className="overflow-hidden border-b border-slate-200 bg-slate-50 px-1.5 py-2 text-left align-middle dark:border-slate-600 dark:bg-slate-800"
+                  className="overflow-hidden border-b border-neutral-200 bg-neutral-50 px-1.5 py-2 text-left align-middle dark:border-neutral-600 dark:bg-neutral-800"
                 >
                   <input
                     type="checkbox"
                     checked={rows.length > 0 && selectedRowIndices.length === rows.length}
                     onChange={toggleAll}
                     title="Seleccionar todas"
-                    className="rounded border-slate-300 dark:border-slate-500 dark:bg-slate-700"
+                    className="rounded border-neutral-300 dark:border-neutral-500 dark:bg-neutral-700"
                   />
                 </th>
                 {visibleInRange(columns, hiddenColumnIds, 0, GROUP_2024_TERCERO_COUNT) > 0 && (
@@ -195,7 +195,7 @@ export function DiotGrid({
                 {displayColumns.map((col) => (
                   <th
                     key={col.id}
-                    className="relative overflow-hidden border-b border-slate-200 bg-slate-50 align-middle dark:border-slate-600 dark:bg-slate-800"
+                    className="relative overflow-hidden border-b border-neutral-200 bg-neutral-50 align-middle dark:border-neutral-600 dark:bg-neutral-800"
                     title={col.requiredWhen ? `${col.label}. ${col.requiredWhen}` : col.label}
                   >
                     <span className="block overflow-hidden text-ellipsis whitespace-nowrap py-2 pr-3.5 pl-1.5">
@@ -225,14 +225,14 @@ export function DiotGrid({
               <tr>
                 <th
                   rowSpan={2}
-                  className="overflow-hidden border-b border-slate-200 bg-slate-50 px-1.5 py-2 text-left align-middle dark:border-slate-600 dark:bg-slate-800"
+                  className="overflow-hidden border-b border-neutral-200 bg-neutral-50 px-1.5 py-2 text-left align-middle dark:border-neutral-600 dark:bg-neutral-800"
                 >
                   <input
                     type="checkbox"
                     checked={rows.length > 0 && selectedRowIndices.length === rows.length}
                     onChange={toggleAll}
                     title="Seleccionar todas"
-                    className="rounded border-slate-300 dark:border-slate-500 dark:bg-slate-700"
+                    className="rounded border-neutral-300 dark:border-neutral-500 dark:bg-neutral-700"
                   />
                 </th>
                 {visibleInRange(columns, hiddenColumnIds, 0, GROUP_2025_TERCERO_COUNT) > 0 && (
@@ -270,7 +270,7 @@ export function DiotGrid({
                 {visibleInRange(columns, hiddenColumnIds, GROUP_2025_TERCERO_COUNT + GROUP_2025_VALOR_ACTOS_COUNT + GROUP_2025_IVA_ACREDITABLE_COUNT + GROUP_2025_IVA_NO_ACREDITABLE_COUNT, columns.length) > 0 && (
                   <th
                     colSpan={visibleInRange(columns, hiddenColumnIds, GROUP_2025_TERCERO_COUNT + GROUP_2025_VALOR_ACTOS_COUNT + GROUP_2025_IVA_ACREDITABLE_COUNT + GROUP_2025_IVA_NO_ACREDITABLE_COUNT, columns.length)}
-                    className="border-b border-slate-200 bg-slate-100 px-2 py-1.5 text-center text-xs font-semibold uppercase tracking-wide text-slate-600 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300"
+                    className="border-b border-neutral-200 bg-neutral-100 px-2 py-1.5 text-center text-xs font-semibold uppercase tracking-wide text-neutral-600 dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-300"
                   >
                     Datos adicionales
                   </th>
@@ -280,7 +280,7 @@ export function DiotGrid({
                 {displayColumns.map((col) => (
                   <th
                     key={col.id}
-                    className="relative overflow-hidden border-b border-slate-200 bg-slate-50 align-middle dark:border-slate-600 dark:bg-slate-800"
+                    className="relative overflow-hidden border-b border-neutral-200 bg-neutral-50 align-middle dark:border-neutral-600 dark:bg-neutral-800"
                     title={col.requiredWhen ? `${col.label}. ${col.requiredWhen}` : col.label}
                   >
                     <span className="block overflow-hidden text-ellipsis whitespace-nowrap py-2 pr-3.5 pl-1.5">
@@ -307,19 +307,19 @@ export function DiotGrid({
             </>
           ) : (
             <tr>
-              <th className="overflow-hidden border-b border-slate-200 bg-slate-50 px-1.5 py-2 text-left dark:border-slate-600 dark:bg-slate-800">
+              <th className="overflow-hidden border-b border-neutral-200 bg-neutral-50 px-1.5 py-2 text-left dark:border-neutral-600 dark:bg-neutral-800">
                 <input
                   type="checkbox"
                   checked={rows.length > 0 && selectedRowIndices.length === rows.length}
                   onChange={toggleAll}
                   title="Seleccionar todas"
-                  className="rounded border-slate-300 dark:border-slate-500 dark:bg-slate-700"
+                  className="rounded border-neutral-300 dark:border-neutral-500 dark:bg-neutral-700"
                 />
               </th>
               {displayColumns.map((col) => (
                 <th
                   key={col.id}
-                  className="relative overflow-hidden border-b border-slate-200 bg-slate-50 align-middle dark:border-slate-600 dark:bg-slate-800"
+                  className="relative overflow-hidden border-b border-neutral-200 bg-neutral-50 align-middle dark:border-neutral-600 dark:bg-neutral-800"
                   title={col.requiredWhen ? `${col.label}. ${col.requiredWhen}` : col.label}
                 >
                   <span className="block overflow-hidden text-ellipsis whitespace-nowrap py-2 pr-3.5 pl-1.5">
@@ -347,13 +347,13 @@ export function DiotGrid({
         </thead>
         <tbody>
           {rows.map((row, rowIndex) => (
-            <tr key={rowIndex} className="border-b border-slate-200 dark:border-slate-600">
+            <tr key={rowIndex} className="border-b border-neutral-200 dark:border-neutral-600">
               <td className="align-middle px-1.5 py-1">
                 <input
                   type="checkbox"
                   checked={selectedRowIndices.includes(rowIndex)}
                   onChange={() => toggleRow(rowIndex)}
-                  className="rounded border-slate-300 dark:border-slate-500 dark:bg-slate-700"
+                  className="rounded border-neutral-300 dark:border-neutral-500 dark:bg-neutral-700"
                 />
               </td>
               {displayColumns.map((col) => {
@@ -445,12 +445,12 @@ export function DiotGrid({
           ))}
         </tbody>
         <tfoot>
-          <tr className="border-b border-slate-200 font-semibold bg-slate-100 dark:border-slate-600 dark:bg-slate-800">
-            <td className="px-1.5 py-1 align-middle dark:text-slate-200">Total</td>
+          <tr className="border-b border-neutral-200 font-semibold bg-neutral-100 dark:border-neutral-600 dark:bg-neutral-800">
+            <td className="px-1.5 py-1 align-middle dark:text-neutral-200">Total</td>
             {displayColumns.map((col) => (
               <td
                 key={col.id}
-                className={`px-1.5 py-1 align-middle dark:text-slate-200 ${col.type === 'number' ? 'text-right' : ''}`}
+                className={`px-1.5 py-1 align-middle dark:text-neutral-200 ${col.type === 'number' ? 'text-right' : ''}`}
               >
                 {col.type === 'number' ? formatNumber(totals[col.id] ?? 0) : '—'}
               </td>

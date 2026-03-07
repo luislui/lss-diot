@@ -24,9 +24,9 @@ interface ToolbarProps {
 }
 
 const btnClass =
-  'inline-flex items-center gap-2 rounded-md border border-slate-400 bg-slate-100 px-3 py-1.5 text-sm text-slate-800 shadow-sm transition-colors hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-1 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600 dark:focus:ring-offset-slate-900'
+  'inline-flex items-center gap-2 rounded-md border border-neutral-400 bg-neutral-100 px-3 py-1.5 text-sm text-neutral-800 shadow-sm transition-colors hover:bg-neutral-200 focus:outline-none focus:ring-2 focus:ring-[#63048C] focus:ring-offset-1 dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-600 dark:focus:ring-offset-neutral-900'
 const iconSize = 18
-const btnDisabledClass = 'cursor-not-allowed opacity-60 hover:bg-slate-100 dark:hover:bg-slate-700'
+const btnDisabledClass = 'cursor-not-allowed opacity-60 hover:bg-neutral-100 dark:hover:bg-neutral-700'
 
 export function Toolbar({
   version,

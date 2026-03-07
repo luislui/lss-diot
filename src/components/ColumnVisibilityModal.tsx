@@ -48,35 +48,35 @@ export function ColumnVisibilityModal({
       aria-modal="true"
       aria-labelledby="column-visibility-title"
     >
-      <div className="max-h-[85vh] w-full max-w-md overflow-hidden rounded-lg border border-slate-300 bg-white shadow-xl dark:border-slate-600 dark:bg-slate-800">
-        <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-600">
-          <h2 id="column-visibility-title" className="text-lg font-semibold text-slate-900 dark:text-white">
+      <div className="max-h-[85vh] w-full max-w-md overflow-hidden rounded-lg border border-neutral-300 bg-white shadow-xl dark:border-neutral-600 dark:bg-neutral-800">
+        <div className="flex items-center justify-between border-b border-neutral-200 px-4 py-3 dark:border-neutral-600">
+          <h2 id="column-visibility-title" className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
             Mostrar u ocultar columnas
           </h2>
           <button
             type="button"
             onClick={onCancel}
-            className="rounded p-1 text-slate-500 hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-600 dark:hover:text-slate-200"
+            className="rounded p-1 text-neutral-500 hover:bg-neutral-100 hover:text-neutral-700 dark:hover:bg-neutral-600 dark:hover:text-neutral-200"
             aria-label="Cerrar"
           >
             <X size={20} />
           </button>
         </div>
-        <p className="border-b border-slate-200 px-4 py-2 text-sm text-slate-600 dark:border-slate-600 dark:text-slate-400">
+        <p className="border-b border-neutral-200 px-4 py-2 text-sm text-neutral-600 dark:border-neutral-600 dark:text-neutral-400">
           Desmarca la columna para ocultarla en la tabla. La configuración se guarda en este navegador.
         </p>
-        <div className="flex gap-2 border-b border-slate-200 px-4 py-2 dark:border-slate-600">
+        <div className="flex gap-2 border-b border-neutral-200 px-4 py-2 dark:border-neutral-600">
           <button
             type="button"
             onClick={showAll}
-            className="rounded border border-slate-400 bg-slate-100 px-2 py-1 text-xs dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200"
+            className="rounded border border-neutral-400 bg-neutral-100 px-2 py-1 text-xs dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-200"
           >
             Mostrar todas
           </button>
           <button
             type="button"
             onClick={hideAll}
-            className="rounded border border-slate-400 bg-slate-100 px-2 py-1 text-xs dark:border-slate-600 dark:bg-slate-700 dark:text-slate-200"
+            className="rounded border border-neutral-400 bg-neutral-100 px-2 py-1 text-xs dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-200"
           >
             Ocultar todas
           </button>
@@ -90,11 +90,11 @@ export function ColumnVisibilityModal({
                   id={`col-${col.id}`}
                   checked={!hidden.has(col.id)}
                   onChange={() => toggle(col.id)}
-                  className="rounded border-slate-300 dark:border-slate-500 dark:bg-slate-700"
+                  className="rounded border-neutral-300 dark:border-neutral-500 dark:bg-neutral-700"
                 />
                 <label
                   htmlFor={`col-${col.id}`}
-                  className="cursor-pointer text-sm text-slate-800 dark:text-slate-200"
+                  className="cursor-pointer text-sm text-neutral-800 dark:text-neutral-200"
                 >
                   {col.label}
                 </label>
@@ -102,18 +102,18 @@ export function ColumnVisibilityModal({
             ))}
           </ul>
         </div>
-        <div className="flex justify-end gap-2 border-t border-slate-200 px-4 py-3 dark:border-slate-600">
+        <div className="flex justify-end gap-2 border-t border-neutral-200 px-4 py-3 dark:border-neutral-600">
           <button
             type="button"
             onClick={onCancel}
-            className="rounded-md border border-slate-400 bg-slate-100 px-3 py-1.5 text-sm dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+            className="rounded-md border border-neutral-400 bg-neutral-100 px-3 py-1.5 text-sm dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-100"
           >
             Cancelar
           </button>
           <button
             type="button"
             onClick={handleSave}
-            className="rounded-md border border-sky-600 bg-sky-600 px-3 py-1.5 text-sm text-white hover:bg-sky-700"
+            className="rounded-md border border-[#63048C] bg-[#63048C] px-3 py-1.5 text-sm text-white hover:bg-[#7a05a8] dark:bg-[#9d3dd4] dark:hover:bg-[#b855e8]"
           >
             Aplicar
           </button>

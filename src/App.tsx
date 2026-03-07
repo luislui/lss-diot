@@ -7,7 +7,7 @@ import { PasteMappingModal } from './components/PasteMappingModal'
 import { HelpModal } from './components/HelpModal'
 import { DuplicateRfcModal } from './components/DuplicateRfcModal'
 import { ColumnVisibilityModal } from './components/ColumnVisibilityModal'
-import { HelpCircle, ArrowLeft } from 'lucide-react'
+import { HelpCircle, ArrowLeft, Sun, Moon } from 'lucide-react'
 import { getSchema, createEmptyRow, type DiotVersion } from './schemas/diotSchemas'
 import { getHiddenColumnIds, setHiddenColumnIds } from './utils/columnVisibility'
 import { getStoredDiotVersion, setStoredDiotVersion } from './utils/diotVersionStorage'
@@ -36,6 +36,12 @@ function App() {
   const [pendingImport, setPendingImport] = useState<PendingImportState | null>(null)
   const [helpOpen, setHelpOpen] = useState(false)
   const [columnVisibilityOpen, setColumnVisibilityOpen] = useState(false)
+  const [dark, setDark] = useState(() => {
+    if (typeof window === 'undefined') return true
+    const stored = localStorage.getItem('lss-theme')
+    if (stored) return stored === 'dark'
+    return true
+  })
   const [hiddenByVersion, setHiddenByVersion] = useState<Record<DiotVersion, string[]>>(() => ({
     '2024': getHiddenColumnIds('2024'),
     '2025': getHiddenColumnIds('2025'),
@@ -121,6 +127,17 @@ function App() {
   }, [])
 
   useEffect(() => {
+    const root = document.documentElement
+    if (dark) {
+      root.classList.add('dark')
+      localStorage.setItem('lss-theme', 'dark')
+    } else {
+      root.classList.remove('dark')
+      localStorage.setItem('lss-theme', 'light')
+    }
+  }, [dark])
+
+  useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'v') {
         const target = e.target as Node
@@ -156,28 +173,39 @@ function App() {
   }, [version, openPasteMappingModal])
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-slate-900">
-      <header className="border-b border-slate-200 bg-white px-6 py-4 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+    <div className="flex min-h-screen flex-col bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 transition-colors">
+      <header className="border-b border-neutral-200 dark:border-neutral-700 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm px-6 py-4 shadow-sm">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-4">
-            <a href="/" className="flex shrink-0 items-center gap-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100" aria-label="Volver al inicio">
+            <a href="/" className="flex shrink-0 items-center gap-2 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors" aria-label="Volver al inicio">
               <ArrowLeft size={24} aria-hidden />
               <img src={logoShort} alt="Loeram" className="h-10 w-auto object-contain" />
             </a>
             <div>
-              <h1 className="m-0 text-2xl font-bold text-slate-900 dark:text-white">LSS Generador de DIOT</h1>
-              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Generador de archivos TXT DIOT para el SAT (México)</p>
+              <h1 className="m-0 text-2xl font-bold text-neutral-800 dark:text-neutral-100">LSS Generador de DIOT</h1>
+              <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">Generador de archivos TXT DIOT para el SAT (México)</p>
             </div>
           </div>
-          <button
-            type="button"
-            onClick={() => setHelpOpen(true)}
-            className="inline-flex items-center gap-2 rounded-md border border-slate-400 bg-slate-100 px-3 py-1.5 text-sm text-slate-800 shadow-sm transition-colors hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-1 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600 dark:focus:ring-offset-slate-800"
-            title="Ayuda"
-          >
-            <HelpCircle size={18} aria-hidden />
-            Ayuda
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setDark((d) => !d)}
+              className="p-2 rounded-lg text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-700 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+              title={dark ? 'Modo claro' : 'Modo oscuro'}
+              aria-label={dark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+            >
+              {dark ? <Sun size={20} aria-hidden /> : <Moon size={20} aria-hidden />}
+            </button>
+            <button
+              type="button"
+              onClick={() => setHelpOpen(true)}
+              className="inline-flex items-center gap-2 rounded-md border border-neutral-400 bg-neutral-100 px-3 py-1.5 text-sm text-neutral-800 shadow-sm transition-colors hover:bg-neutral-200 focus:outline-none focus:ring-2 focus:ring-[#63048C] focus:ring-offset-1 dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-600 dark:focus:ring-offset-neutral-900"
+              title="Ayuda"
+            >
+              <HelpCircle size={18} aria-hidden />
+              Ayuda
+            </button>
+          </div>
         </div>
       </header>
       <main className="flex-1 w-full px-4 py-4">
@@ -206,12 +234,12 @@ function App() {
           hiddenColumnIds={hiddenByVersion[version]}
         />
       </main>
-      <footer className="mt-auto border-t border-slate-200 bg-white px-6 py-3 text-center text-sm text-slate-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400">
+      <footer className="mt-auto border-t border-neutral-200 dark:border-neutral-700 bg-white/60 dark:bg-neutral-800/60 px-6 py-3 text-center text-sm text-neutral-600 dark:text-neutral-400">
         <a
           href="https://www.loeramsoft.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-sky-600 hover:underline dark:hover:text-sky-400"
+          className="hover:text-[#63048C] dark:hover:text-[#b855e8] transition-colors"
         >
           Loeram Software Solutions
         </a>
