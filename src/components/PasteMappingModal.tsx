@@ -43,7 +43,7 @@ function saveMapping(version: DiotVersion, headerToColId: Record<string, string>
 
 /**
  * Sugiere el id de columna del esquema que mejor coincide con el texto del encabezado (por label).
- * No se sugiere "Subtotal" cuando el encabezado es solo "Total".
+ * No se sugiere "Base" cuando el encabezado es solo "Total".
  * No se sugiere columna de IVA cuando el encabezado es solo "IVA" (evitar mapear IVA genérico a IVA 16% no acreditable, etc.).
  */
 function suggestColumnId(header: string, schemaColumns: SchemaColumn[]): string {
@@ -52,8 +52,8 @@ function suggestColumnId(header: string, schemaColumns: SchemaColumn[]): string 
   const exact = schemaColumns.find((c) => c.label.trim().toLowerCase() === h)
   if (exact) return exact.id
   if (h === 'total' || h === 'totales') {
-    const withoutSubtotal = schemaColumns.filter((c) => !c.label.trim().toLowerCase().includes('subtotal'))
-    const contains = withoutSubtotal.find((c) => c.label.trim().toLowerCase().includes(h) || h.includes(c.label.trim().toLowerCase()))
+    const withoutBase = schemaColumns.filter((c) => !c.label.trim().toLowerCase().includes('base'))
+    const contains = withoutBase.find((c) => c.label.trim().toLowerCase().includes(h) || h.includes(c.label.trim().toLowerCase()))
     return contains ? contains.id : EMPTY
   }
   if (h === 'iva') {
