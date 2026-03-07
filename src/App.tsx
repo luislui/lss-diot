@@ -14,6 +14,7 @@ import { getStoredDiotVersion, setStoredDiotVersion } from './utils/diotVersionS
 import { validateRow } from './utils/validation'
 import { parsePastedToLines, hasPastedHeaders, parsePastedDataWithMapping } from './utils/pasteFromClipboard'
 import { hasDuplicateRfc, groupRowsByRfc } from './utils/groupByRfc'
+import logoShort from './assets/images/logo_loeram_short.png'
 
 type RowRecord = Record<string, string | number>
 
@@ -160,7 +161,7 @@ function App() {
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-4">
             <a href="https://www.loeramsoft.com" target="_blank" rel="noopener noreferrer" className="shrink-0" aria-label="Loeram Software Solutions">
-              <img src="/logo_loeram_short.png" alt="Loeram" className="h-10 w-auto object-contain" />
+              <img src={logoShort} alt="Loeram" className="h-10 w-auto object-contain" />
             </a>
             <div>
               <h1 className="m-0 text-2xl font-bold text-slate-900 dark:text-white">LSS Generador de DIOT</h1>

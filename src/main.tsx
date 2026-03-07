@@ -3,8 +3,15 @@ import { createRoot } from 'react-dom/client'
 import { Toaster } from 'react-hot-toast'
 import './index.css'
 import App from './App.tsx'
+import faviconUrl from './assets/images/logo_loeram_favicon.png'
 
 document.documentElement.classList.add('dark')
+
+const link = document.querySelector<HTMLLinkElement>('link[rel="icon"]') ?? document.createElement('link')
+link.rel = 'icon'
+link.type = 'image/png'
+link.href = faviconUrl
+if (!document.querySelector('link[rel="icon"]')) document.head.appendChild(link)
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
