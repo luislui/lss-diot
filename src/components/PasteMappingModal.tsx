@@ -3,6 +3,7 @@ import { X } from 'lucide-react'
 import type { DiotVersion } from '../schemas/diotSchemas'
 
 const EMPTY = ''
+const NO_IMPORT_SENTINEL = '__no_import'
 const STORAGE_KEY_PREFIX = 'diot-column-mapping-'
 
 interface SchemaColumn {
@@ -41,30 +42,12 @@ function saveMapping(version: DiotVersion, headerToColId: Record<string, string>
   }
 }
 
-/**
- * Sugiere el id de columna del esquema que mejor coincide con el texto del encabezado (por label).
- * No se sugiere "Base" cuando el encabezado es solo "Total".
- * No se sugiere columna de IVA cuando el encabezado es solo "IVA" (evitar mapear IVA genérico a IVA 16% no acreditable, etc.).
- */
-function suggestColumnId(header: string, schemaColumns: SchemaColumn[]): string {
+/** Solo sugiere la columna RFC cuando el encabezado pegado es claramente "RFC". El resto lo elige el usuario. */
+function suggestRfcIfMatch(header: string, schemaColumns: SchemaColumn[]): string {
   const h = header.trim().toLowerCase()
-  if (!h) return EMPTY
-  const exact = schemaColumns.find((c) => c.label.trim().toLowerCase() === h)
-  if (exact) return exact.id
-  if (h === 'total' || h === 'totales') {
-    const withoutBase = schemaColumns.filter((c) => !c.label.trim().toLowerCase().includes('base'))
-    const contains = withoutBase.find((c) => c.label.trim().toLowerCase().includes(h) || h.includes(c.label.trim().toLowerCase()))
-    return contains ? contains.id : EMPTY
-  }
-  if (h === 'iva') {
-    return EMPTY
-  }
-  if (h === 'subtotal' || h === 'base') {
-    const col = schemaColumns.find((c) => c.label.trim().toLowerCase() === 'base 16%')
-    return col ? col.id : EMPTY
-  }
-  const contains = schemaColumns.find((c) => c.label.trim().toLowerCase().includes(h) || h.includes(c.label.trim().toLowerCase()))
-  return contains ? contains.id : EMPTY
+  if (!h || h !== 'rfc') return EMPTY
+  const rfcCol = schemaColumns.find((c) => c.id === 'rfc')
+  return rfcCol ? rfcCol.id : EMPTY
 }
 
 export function PasteMappingModal({
@@ -83,7 +66,11 @@ export function PasteMappingModal({
     const initial: Record<number, string> = {}
     pastedHeaders.forEach((header, i) => {
       const key = normalizeHeader(header)
-      initial[i] = (key && saved[key]) || suggestColumnId(header, schemaColumns)
+      if (key && key in saved) {
+        initial[i] = saved[key] === NO_IMPORT_SENTINEL ? EMPTY : saved[key]
+      } else {
+        initial[i] = suggestRfcIfMatch(header, schemaColumns)
+      }
     })
     setMapping(initial)
   }, [version, pastedHeaders, schemaColumns])
@@ -99,11 +86,10 @@ export function PasteMappingModal({
     })
     const saved = getSavedMapping(version)
     pastedHeaders.forEach((header, i) => {
-      const colId = filtered[i]
-      if (colId && colId !== EMPTY) {
-        const key = normalizeHeader(header)
-        if (key) saved[key] = colId
-      }
+      const key = normalizeHeader(header)
+      if (!key) return
+      const colId = mapping[i] ?? EMPTY
+      saved[key] = colId && colId !== EMPTY ? colId : NO_IMPORT_SENTINEL
     })
     saveMapping(version, saved)
     onConfirm(filtered)
