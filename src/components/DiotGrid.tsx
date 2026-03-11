@@ -144,7 +144,7 @@ export function DiotGrid({
     'border-red-600 bg-red-50 text-red-700 focus:border-red-600 focus:ring-red-600 dark:border-red-500 dark:bg-red-900/40 dark:text-red-200 dark:focus:border-red-500 dark:focus:ring-red-500'
 
   return (
-    <div className="w-full overflow-auto rounded-lg border border-neutral-200 dark:border-neutral-600">
+    <div className="mb-4 w-full overflow-auto rounded-lg border border-neutral-200 dark:border-neutral-600">
       <table
         className="w-full min-w-full table-fixed border-collapse text-[0.8125rem]"
         style={{ minWidth: tableMinWidth }}
