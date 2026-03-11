@@ -139,7 +139,7 @@ export const schema2025: DiotColumn[] = [
   { id: 'iva_retenido_2025', label: 'IVA retenido', type: 'number', requiredWhen: 'IVA retenido por el contribuyente pagado' },
   { id: 'valor_import_exentos_2025', label: 'Base Exento Importación', type: 'number', requiredWhen: 'Valor de actos o actividades pagados en la importación de bienes y servicios por los que no se pagará el IVA' },
   { id: 'valor_exentos_2025', label: 'Base exento', type: 'number', requiredWhen: 'Valor de actos o actividades pagados por los que no se pagará el IVA' },
-  { id: 'valor_0_2025', label: 'IVA 0%', type: 'number', requiredWhen: 'Valor de demás actos o actividades pagados a la tasa del 0% de IVA' },
+  { id: 'valor_0_2025', label: 'Base 0%', type: 'number', requiredWhen: 'Valor de demás actos o actividades pagados a la tasa del 0% de IVA' },
   { id: 'valor_no_objeto_nacional', label: 'No objeto IVA nacional', type: 'number', requiredWhen: 'Valor de actos o actividades no objeto del IVA realizados en territorio nacional' },
   { id: 'valor_no_objeto_sin_estab', label: 'No objeto IVA no nacional', type: 'number', requiredWhen: 'Valor de actos o actividades no objeto del IVA por no contar con establecimiento en territorio nacional' },
   {
